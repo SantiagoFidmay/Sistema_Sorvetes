@@ -1,4 +1,4 @@
-class Pote {
+export class Pote {
     constructor(raio, altura) {
         this.raio = raio
         this.altura = altura
@@ -30,14 +30,12 @@ class Pote {
         console.log(`Peso/pote:   ${peso.toFixed(2)} g`)
         console.log(`Densidade:   ${this.densidade} g/cm³\n`)
 
-        const uma = this.quantosPotesCabem(ton)
-        const cinco = this.quantosPotesCabem(ton)
-        const dose = this.quantosPotesCabem(ton)
+        const uma = this.quantosPotesCabem(1)
+        const cinco = this.quantosPotesCabem(5)
+        const dose = this.quantosPotesCabem(12)
         console.log(`1 tonelada(s) dão ${uma} potes`)
         console.log(`5 tonelada(s) dão ${cinco} potes`)
         console.log(`12 tonelada(s) dão ${dose} potes`)
         
     }
 }
-
-module.exports = Pote;
