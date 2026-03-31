@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnLimpar = document.getElementById('btn-limpar');
     
     const selectMeta = document.getElementById('meta');
+    const selectPote = document.getElementById('pote'); // Adicionado para pegar o tamanho do pote
     const inputRaio = document.getElementById('raio');
     const inputAltura = document.getElementById('altura');
     const divResposta = document.getElementById('resposta');
@@ -20,10 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const raio = parseFloat(inputRaio.value);
         const altura = parseFloat(inputAltura.value);
         
-        // O select de meta tem value="1000" para 1 tonelada (que são 1000kg). 
-        // Como a classe espera a meta em toneladas, dividimos por 1000.
+        // O select de meta tem value="1000" para 1 tonelada
         const metaKg = parseFloat(selectMeta.value); 
         const toneladas = metaKg / 1000; 
+
+        // Pegando o tamanho do pote selecionado (ex: 400, 900, 1700)
+        const tamanhoPoteSelecionado = parseFloat(selectPote.value);
 
         // Validação básica: se o usuário não preencheu o raio ou altura
         if (isNaN(raio) || isNaN(altura) || raio <= 0 || altura <= 0) {
@@ -35,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Instancia a Calculadora de Produção
         const calculadora = new CalculadoraProducao(toneladas);
-        const resumoProducao = calculadora.gerarResumo();
+        // Passa o tamanho do pote selecionado para a calculadora
+        const resumoProducao = calculadora.gerarResumo(tamanhoPoteSelecionado);
 
         // Instancia o Pote
         const pote = new Pote(raio, altura);
@@ -49,8 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
         divResposta.innerHTML = `
             <h3>📊 Custos e Ingredientes (${toneladas} Tonelada/s)</h3>
             <ul>
-                <li><strong>Pasta de Pistache (${resumoProducao.ingredientes.pastaPistacheKg} kg):</strong> ${resumoProducao.custos.custoPistache}</li>
-                <li><strong>Base Láctea (${resumoProducao.ingredientes.baseLacteaKg} kg):</strong> ${resumoProducao.custos.custoBase}</li>
+                <li><strong>Leite (${resumoProducao.ingredientes.leiteKg.toFixed(2)} kg):</strong> ${resumoProducao.custos.custoLeite}</li>
+                <li><strong>Creme de Leite (${resumoProducao.ingredientes.cremeKg.toFixed(2)} kg):</strong> ${resumoProducao.custos.custoCreme}</li>
+                <li><strong>Açúcar (${resumoProducao.ingredientes.acucarKg.toFixed(2)} kg):</strong> ${resumoProducao.custos.custoAcucar}</li>
+                <li><strong>Pasta de Pistache (${resumoProducao.ingredientes.pastaPistacheKg.toFixed(2)} kg):</strong> ${resumoProducao.custos.custoPastaPistache}</li>
+                <li><strong>Pistache Inteiro (${resumoProducao.ingredientes.pistacheInteiroKg.toFixed(2)} kg):</strong> ${resumoProducao.custos.custoPistacheInteiro}</li>
+                <br>
                 <li><strong>Custo Total de Produção:</strong> <span style="color: green; font-weight: bold;">${resumoProducao.custos.custoTotal}</span></li>
             </ul>
             
@@ -69,9 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
         inputRaio.value = '';
         inputAltura.value = '';
         
-        // Volta os selects para a opção padrão (índice 1 = 5 toneladas / 900g)
+        // Volta os selects para a opção padrão
         selectMeta.selectedIndex = 1; 
-        document.getElementById('pote').selectedIndex = 1; 
+        selectPote.selectedIndex = 1; 
         
         // Restaura a mensagem original
         divResposta.innerHTML = '<p>Selecione a meta, o pote, informe as dimensões e clique em "Calcular" para ver o relatório completo.</p>';
