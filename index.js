@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Injetando o HTML com os resultados calculados dentro da div #resposta
         divResposta.innerHTML = `
-            <h3>📊 Custos e Ingredientes (${toneladas} Tonelada/s)</h3>
+            <h3> Custos e Ingredientes (${toneladas} Tonelada/s)</h3>
             <ul>
                 <li><strong>Leite (${resumoProducao.ingredientes.leiteKg.toFixed(2)} kg):</strong> ${resumoProducao.custos.custoLeite}</li>
                 <li><strong>Creme de Leite (${resumoProducao.ingredientes.cremeKg.toFixed(2)} kg):</strong> ${resumoProducao.custos.custoCreme}</li>
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <li><strong>Custo Total de Produção:</strong> <span style="color: green; font-weight: bold;">${resumoProducao.custos.custoTotal}</span></li>
             </ul>
             
-            <h3 style="margin-top: 15px;">📦 Logística e Embalagem</h3>
+            <h3 style="margin-top: 15px;">Logística e Embalagem</h3>
             <ul>
                 <li><strong>Volume do Pote:</strong> ${volumePote.toFixed(2)} cm³</li>
                 <li><strong>Peso estimado por pote:</strong> ${pesoPote.toFixed(2)} g</li>
